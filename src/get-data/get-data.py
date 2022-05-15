@@ -35,8 +35,7 @@ class GetData():
     def niftyHistoryData(self):
         varient = self.ticker.upper().replace(' ', '%20').replace('-', '%20')
         webData = self.session.get(
-            url="https://www1.nseindia.com/products/dynaContent/equities/indices/historicalindices.jsp?indexType=" + varient +
-                "&fromDate=" + self.from_date + "&toDate=" + self.to_date,
+            url="https://www1.nseindia.com/products/dynaContent/equities/indices/historicalindices.jsp?indexType=" + varient + "&fromDate=" + self.from_date + "&toDate=" + self.to_date,
             headers=head)
         soup = bs4.BeautifulSoup(webData.text, 'html5lib')
         df = pd.read_csv(StringIO(soup.find('div', {'id': 'csvContentDiv'}).contents[0].replace(':','\n')))
@@ -44,7 +43,7 @@ class GetData():
         return df
 
 
-tcs_data = GetData('TCS', from_date='14-05-2020', to_date='14-05-2022')
+tcs_data = GetData('TCS', from_date='14-05-2016', to_date='14-05-2018')
 print(tcs_data.getHistoryData())
 # print(niftyHistoryData('NIFTY 50'))
 
